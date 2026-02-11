@@ -383,5 +383,3 @@ If you find this useful, please star the repository!
 **Remember: These are prediction models, not crystal balls. Trade responsibly!**
 
 ---
-
-Made with ❤️ for educational purposes | © 2024 | [GitHub](https://github.com/Anshulmehra001/Prediction_Models)
