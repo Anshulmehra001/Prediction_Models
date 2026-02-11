@@ -118,6 +118,9 @@ class DataLoader:
             df.columns = df.columns.get_level_values(0)
         
         df.columns = [str(col).title().replace(' ', '_') for col in df.columns]
+        
+        # Set frequency to business days to fix ARIMA warning
+        df.index.freq = 'B'
         df.index = pd.to_datetime(df.index).tz_localize(None)
         
         return df
@@ -784,23 +787,26 @@ def main():
         # Get next-day prediction
         prediction = predictor.predict_next_day()
         
+        # Determine currency symbol based on ticker
+        currency = '₹' if '.NS' in ticker or '.BO' in ticker else '$'
+        
         # Display prediction
         print("\n" + "="*70)
         print("🔮 NEXT-DAY PREDICTION")
         print("="*70)
         print(f"\nTicker: {prediction['ticker']}")
-        print(f"Current Price: ₹{prediction['current_price']}")
-        print(f"Predicted Price: ₹{prediction['predicted_price']}")
+        print(f"Current Price: {currency}{prediction['current_price']}")
+        print(f"Predicted Price: {currency}{prediction['predicted_price']}")
         print(f"Expected Change: {prediction['predicted_change_pct']}%")
         print(f"\n📊 Signal: {prediction['signal']}")
         print(f"🎯 Confidence: {prediction['confidence']}%")
         print(f"\n💰 Risk Management:")
-        print(f"  Stop Loss: ₹{prediction['stop_loss']}")
-        print(f"  Take Profit: ₹{prediction['take_profit']}")
+        print(f"  Stop Loss: {currency}{prediction['stop_loss']}")
+        print(f"  Take Profit: {currency}{prediction['take_profit']}")
         
         print(f"\n🤖 Individual Model Predictions:")
         for model, price in prediction['individual_predictions'].items():
-            print(f"  {model}: ₹{price}")
+            print(f"  {model}: {currency}{price}")
         
         print("\n" + "="*70)
         
