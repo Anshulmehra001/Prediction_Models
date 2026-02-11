@@ -6,11 +6,8 @@ import datetime
 import numpy as np  # Import numpy explicitly for random operations
 
 # --- Configuration ---
-# Your API Key placeholder:
-# For yfinance, an API key is generally NOT required for historical data.
-# However, if you switch to other providers like Alpha Vantage, Finnhub, or Twelve Data
-# for more extensive or real-time data, you would insert your key here.
-API_KEY = "FGPN4DT5XBKSV94Z"  # Replace with your actual API key if using a different API
+# For yfinance, an API key is NOT required for historical data.
+# If you need other data providers, set API keys in .env file
 
 # NSE Stock Ticker to analyze (e.g., Reliance Industries on NSE)
 # Common suffixes for NSE stocks on Yahoo Finance are ".NS" or ".BO" for BSE.

@@ -26,7 +26,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 warnings.filterwarnings("ignore")
 load_dotenv()
 
-NEWS_API_KEY = os.getenv("NEWS_API_KEY", "YOUR_NEWS_API_KEY_HERE")
+NEWS_API_KEY = os.getenv("NEWS_API_KEY", "")
 
 # --- Global NLP Model (Initialize once) ---
 NLP_SENTIMENT_PIPELINE = None

@@ -9,11 +9,22 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 # --- Configuration ---
-# Your API Key placeholder:
-# For yfinance, an API key is generally NOT required for historical data.
-# However, if you switch to other providers like Alpha Vantage, Finnhub, or Twelve Data
-# for more extensive or real-time data, you would insert your key here.
-API_KEY = "FGPN4DT5XBKSV94Z"  # Replace with your actual API key if using a different API
+# For yfinance, an API key is NOT required for historical data.
+# If you need other data providers, set API keys in .env file
+
+# List of top NSE Stock Tickers to analyze (based on general market cap/prominence)
+# You can customize this list with any valid NSE tickers (e.g., "TCS.NS", "HDFCBANK.NS")
+TOP_NSE_TICKERS = [
+    "RELIANCE.NS",  # Reliance Industries
+    "TCS.NS",  # Tata Consultancy Services
+    "HDFCBANK.NS",  # HDFC Bank
+    "INFY.NS",  # Infosys
+    "ICICIBANK.NS",  # ICICI Bank
+    "BHARTIARTL.NS",  # Bharti Airtel
+    "ITC.NS",  # ITC
+    "LT.NS",  # Larsen & Toubro
+    "HINDUNILVR.NS"  # Hindustan Unilever
+]
 
 # Number of historical days to fetch for analysis
 HISTORY_DAYS = 365  # Increased for better ML training data
@@ -141,26 +152,32 @@ def get_stock_prediction(stock_ticker):
 # --- Overall Program Execution ---
 
 if __name__ == "__main__":
-    print("Welcome to the NSE Stock Predictor!\n")
-    user_ticker = input("Enter the NSE stock ticker (e.g., RELIANCE.NS): ").strip().upper()
+    all_predictions = []
+    print("Starting prediction process for top NSE companies...\n")
 
-    if not user_ticker:
-        print("No ticker entered. Exiting program.")
-    else:
-        prediction_result = get_stock_prediction(user_ticker)
-
-        print("\n" + "=" * 70)
+    for ticker in TOP_NSE_TICKERS:
+        prediction_result = get_stock_prediction(ticker)
         if prediction_result:
-            arrow = '▲' if prediction_result['predicted_change_percentage'] >= 0 else '▼'
-            print(f"                  PREDICTION FOR {prediction_result['name']} ({prediction_result['ticker']})")
-            print("=" * 70)
-            print(f"   Latest Close: ₹{prediction_result['latest_close']:.2f}")
-            print(f"   Predicted Next Close: ₹{prediction_result['predicted_next_close']:.2f}")
-            print(f"   Predicted Change: {prediction_result['predicted_change_percentage']:.2f}% {arrow}")
-        else:
-            print(f"                  Could not generate prediction for {user_ticker}")
-            print("=" * 70)
-            print("Please check the ticker symbol and ensure there's enough historical data.")
+            all_predictions.append(prediction_result)
+
+    print("\n" + "=" * 70)
+    print("                  TOP 7 NSE STOCK PREDICTIONS (SIMULATED)")  # Updated title
+    print("=" * 70)
+
+    if not all_predictions:
+        print("No predictions could be generated. Please check for errors above.")
+    else:
+        # Sort predictions by predicted change percentage in descending order
+        all_predictions.sort(key=lambda x: x['predicted_change_percentage'], reverse=True)
+
+        # Print the top 7
+        for i, pred in enumerate(all_predictions[:7]):  # Changed from [:5] to [:7]
+            arrow = '▲' if pred['predicted_change_percentage'] >= 0 else '▼'
+            print(f"\n{i + 1}. {pred['name']} ({pred['ticker']})")
+            print(f"   Latest Close: ₹{pred['latest_close']:.2f}")
+            print(f"   Predicted Next Close: ₹{pred['predicted_next_close']:.2f}")
+            print(f"   Predicted Change: {pred['predicted_change_percentage']:.2f}% {arrow}")
+            print("-" * 30)
 
     print("\n" + "=" * 70)
     print("Disclaimer: These are simulated predictions for demonstration purposes.")

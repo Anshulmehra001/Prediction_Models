@@ -1,4 +1,6 @@
 
+import os
+
 import warnings
 import yfinance as yf
 import numpy as np
@@ -35,8 +37,8 @@ except ImportError:
 np.random.seed(42)
 tf.random.set_seed(42)
 
-# --- Configuration for NewsAPI (ADD YOUR API KEY HERE) ---
-NEWS_API_KEY = "94db29d4b7a54c76be66094620543a49"  # <--- REPLACE WITH YOUR ACTUAL NEWSAPI.ORG API KEY
+# --- Configuration for NewsAPI (Loaded from .env file) ---
+NEWS_API_KEY = os.getenv('NEWS_API_KEY', '')  # Load from environment
 NEWS_API_BASE_URL = "https://newsapi.org/v2/everything"
 
 # --- GLOBAL CONSTANTS ---

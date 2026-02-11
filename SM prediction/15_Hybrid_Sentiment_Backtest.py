@@ -13,7 +13,7 @@ from tensorflow.keras.layers import Input, LSTM, Dense, Dropout, concatenate, At
 from tensorflow.keras.callbacks import EarlyStopping
 
 # === Sentiment model + API key ===
-API_KEY = "94db29d4b7a54c76be66094620543a49"
+API_KEY = os.getenv('NEWS_API_KEY', '')
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 sentiment_model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
 

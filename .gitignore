@@ -1,0 +1,89 @@
+# Environment variables - NEVER COMMIT THESE!
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Models and Data - Don't commit trained models
+*.pkl
+*.h5
+*.model
+*.joblib
+*.csv
+*.db
+*.sqlite
+simple_model.pkl
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Trading data (sensitive)
+trading_data/
+backtest_results/
+live_trades/
+
+# Predictions and outputs - Don't commit these
+predictions/
+SM prediction/predictions
+SM prediction/api
+*_predictions.png
+*.png
+
+# API Keys (extra safety)
+*api_key*
+*secret*
+credentials.json
+
+# Temporary and test files
+new_test_script.py
+test_*.py
+temp_*.py
+0.py
+
+# HTML templates (if not needed)
+template.html
+
+# Documentation duplicates
+SETUP.md
